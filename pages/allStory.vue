@@ -426,6 +426,13 @@ const getCategoryClass = (item: string) => (selectedCategory.value === item ? "s
   outline: none;
   border: none;
 }
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Playfair", serif;
+  font-size: 40px;
+}
 
 /* Responsive styles */
 @media (max-width: 1200px) {

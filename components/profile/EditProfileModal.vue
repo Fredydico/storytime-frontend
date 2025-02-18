@@ -248,30 +248,33 @@ watch(
   justify-content: center;
   align-items: center;
   z-index: 2000;
-}
-
-.avatar {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-}
-
-.btnChangePic {
-  margin-left: 20px;
-}
-
-h2 {
-  font-size: 25px;
-  font-weight: bold;
+  padding: 1rem;
 }
 
 .modal-content {
   background-color: white;
-  padding: 30px;
+  padding: clamp(1rem, 3vw, 2rem);
   border-radius: 8px;
-  width: 1200px;
+  width: min(95vw, 1200px);
   position: relative;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.avatar {
+  width: clamp(100px, 15vw, 180px);
+  height: clamp(100px, 15vw, 180px);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btnChangePic {
+  margin-left: clamp(0.5rem, 2vw, 1.25rem);
+}
+
+h2 {
+  font-size: clamp(1.25rem, 3vw, 1.5625rem);
+  font-weight: bold;
 }
 
 .disabled {
@@ -285,51 +288,99 @@ h2 {
 .profile-picture {
   display: flex;
   align-items: center;
-}
-
-.change-pic-button {
-  margin-left: 25px;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0.625rem;
+  right: 0.625rem;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 1.5rem;
   cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
 }
 
 .modal-body {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.25rem;
 }
 
 .profile-section,
 .password-section {
-  width: 50%;
+  width: 100%;
 }
 
 h3 {
-  font-size: 25px;
+  font-size: clamp(1.25rem, 3vw, 1.5625rem);
   font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .button-group {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-left: 10px;
-  width: 27%;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  margin-left: 12px;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 .error-message {
   color: #dc2626;
-  margin-top: 8px;
+  margin-top: 0.5rem;
   font-size: 0.875rem;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .modal-body {
+    flex-direction: row;
+  }
+
+  .profile-section,
+  .password-section {
+    width: 50%;
+  }
+
+  .button-group {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-picture {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .btnChangePic {
+    margin-left: 0;
+  }
+}
+
+/* Add smooth transitions */
+.modal-overlay {
+  transition: opacity 0.3s ease;
+}
+
+.modal-content {
+  transition: transform 0.3s ease;
+}
+
+/* Ensure inputs and buttons are touch-friendly on mobile */
+@media (max-width: 768px) {
+  button,
+  input,
+  textarea {
+    min-height: 44px; /* Minimum touch target size */
+  }
 }
 </style>

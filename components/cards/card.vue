@@ -50,7 +50,6 @@
     :on-cancel="() => showDeleteModal = false"
   />
 
-  <!-- Toast Component - Keep it always mounted -->
   <ModalsToast 
     :message="toastMessage" 
     :type="'success'"

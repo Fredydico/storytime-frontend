@@ -205,7 +205,6 @@ const confirmLogout = async () => {
 
 .auth-buttons {
   display: flex;
-  gap: 1rem;
   align-items: center;
 }
 

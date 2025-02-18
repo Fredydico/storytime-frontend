@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch } from "vue";
+import { ref, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { fetchCategories, postStory, fetchSingleStory, updateStory } from "~/store/fetchStory";
 import BaseInput from "~/components/input/BaseInput.vue";
@@ -24,9 +24,8 @@ const storyData = reactive({
 });
 
 interface Category {
-  id: number; // atau string, tergantung pada tipe ID yang Anda gunakan
+  id: number;
   name: string;
-  // Tambahkan properti lain jika diperlukan
 }
 
 const categoriesData = ref<Category[]>([]);
@@ -176,7 +175,7 @@ const handleSubmit = async () => {
         @update:modelValue="handleCategoryChange"
       />
 
-      <BaseInput type="textarea" label="Content" identity="story" placeholder="Write your story here" :isToolbar="true" height="80px" width="100%" v-model="storyData.content" />
+      <BaseInput type="textarea" label="Content" identity="story" placeholder="Write your story here" :isToolbar="true" width="100%" v-model="storyData.content" />
 
       <div class="form-cover-image my-5">
         <BaseInput

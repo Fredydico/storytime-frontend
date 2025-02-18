@@ -190,7 +190,7 @@ const removeImage = (index) => {
   display: flex;
   justify-content: space-between;
   background-color: #f1f1f1;
-  padding: 10px;
+  padding: 10px 10px 10px 4px;
   width: 25%;
 }
 
