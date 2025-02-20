@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_URL = "http://159.203.137.163";
+const API_URL = "http://157.245.193.94";
 
 export const fetchStories = async (params = {}) => {
   try {
@@ -53,6 +53,8 @@ export const fetchNewestStories = async () => {
 
 export const fetchCategories = async () => { 
   try { 
+    console.log(`${API_URL}/api/category`);
+
     const response = await axios.get(`${API_URL}/api/category`); 
     return response.data.data || []; // Ensure we always return an array
   } catch (error) { 
@@ -238,7 +240,7 @@ export const deleteStory = async (storyId) => {
       throw new Error("Authorization token not found");
     }
 
-    const response = await axios.delete(`${API_URL}/api/story/${storyId}`, {
+    const response = await axios.delete(`${API_URL}/api/stories/${storyId}`, {
       headers: { 
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'

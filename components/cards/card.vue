@@ -46,7 +46,7 @@
     message="Are you sure want to delete this story?"
     confirm-text="Delete"
     cancel-text="Cancel"
-    :on-confirm="confirmDelete"
+    :on-confirm="handleConfirmDelete"
     :on-cancel="() => showDeleteModal = false"
   />
 
@@ -71,6 +71,7 @@ const isBookmarked = ref(false);
 const showDeleteModal = ref(false);
 const showToast = ref(false);
 const toastMessage = ref("");
+const emit = defineEmits(['storyDeleted']);
 
 const props = defineProps({
   id: { type: Number, required: true },
@@ -129,20 +130,21 @@ const handleEdit = () => {
   });
 };
 
-const handleDelete = async () => {
+const handleDelete = () => {
   showDeleteModal.value = true;
 };
 
-const confirmDelete = async () => {
+const handleConfirmDelete = async () => {
   try {
     await deleteStory(props.id);
-    // Store the toast message in localStorage before reload
-    localStorage.setItem('toastMessage', 'Successfully deleted a story');
-    window.location.reload();
-  } catch (error) {
-    alert(error.message || 'Failed to delete story. Please try again.');
-  } finally {
     showDeleteModal.value = false;
+    toastMessage.value = "Successfully deleted the story";
+    showToast.value = true;
+    emit('storyDeleted', props.id);
+  } catch (error) {
+    console.error('Error deleting story:', error);
+    toastMessage.value = error.message || "Failed to delete story";
+    showToast.value = true;
   }
 };
 

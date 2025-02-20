@@ -28,7 +28,7 @@
       <p class="pNoStory">You haven't shared any stories yet. Start your fitness journey today!</p>
       <img src="/assets/noStory.png" alt="no story" class="imgNoStory" />
     </div>
-    <div v-if="activeTab == 'Bookmarks' &&totalCards === 0" class="noStory bookmarks">
+    <div v-if="activeTab == 'Bookmarks' && totalCards === 0" class="noStory bookmarks">
       <h1 class="textNoStory">No Bookmarks Yet</h1>
       <p class="pNoStory">You haven't saved any bookmarks yet. Explore and bookmark your top workouts!</p>
       <img src="/assets/noBookmarks.png" alt="no story" class="imgNoStory" />
@@ -48,6 +48,7 @@
           :image="story.cover"
           :author_img="story.author_image"
           :category="story.category"
+          @story-deleted="handleStoryDeleted"
         />
       </div>
       <div class="pagination" v-if="showPagination">
@@ -84,7 +85,7 @@ const isModalVisible = ref(false);
 
 const cardsPerPage = 4;
 const currentPage = ref(1);
-const activeTab = ref('My Story');
+const activeTab = ref("My Story");
 
 interface Story {
   id: number;
@@ -130,15 +131,24 @@ const fetchBookmarkStories = async () => {
   }
 };
 
+const handleStoryDeleted = (storyId: number) => {
+  // Remove the deleted story from the local state
+  userAllStory.value = userAllStory.value.filter(story => story.id !== storyId);
+  // Reset to first page if current page becomes empty
+  if (paginatedStories.value.length === 0 && currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
 onMounted(() => {
   fetchUserStories();
   fetchBookmarkStories();
 });
 
 const totalCards = computed(() => {
-  if (activeTab.value === 'My Story') {
+  if (activeTab.value === "My Story") {
     return userAllStory.value.length;
-  } else if (activeTab.value === 'Bookmarks') {
+  } else if (activeTab.value === "Bookmarks") {
     return bookmarkAllStory.value.length;
   }
   return 0;
@@ -186,10 +196,10 @@ const visiblePages = computed(() => {
 const paginatedStories = computed(() => {
   const start = (currentPage.value - 1) * cardsPerPage;
   const end = start + cardsPerPage;
-  if (activeTab.value === 'My Story') {
+  if (activeTab.value === "My Story") {
     return userAllStory.value.slice(start, end);
-  } else if (activeTab.value === 'Bookmarks') {
-    return bookmarkAllStory.value.slice(start, end).map(bookmark => bookmark.story);
+  } else if (activeTab.value === "Bookmarks") {
+    return bookmarkAllStory.value.slice(start, end).map((bookmark) => bookmark.story);
   }
   return [];
 });
@@ -385,24 +395,24 @@ p {
   .container {
     width: 80%;
   }
-  
+
   .containerLinks {
     width: 35%;
   }
-  
+
   .write {
     width: 350px;
     margin-left: 40px;
   }
-  
+
   .cards {
     margin-right: 40px;
   }
-  
+
   .noStory {
     width: 600px;
   }
-  
+
   .imgNoStory {
     width: 400px;
   }
@@ -420,47 +430,47 @@ p {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .avatar {
     width: 150px;
     height: 150px;
     margin-bottom: 20px;
   }
-  
+
   .containerDet {
     width: 100%;
     margin-bottom: 20px;
   }
-  
+
   .containerLinks {
     width: 80%;
     margin: 40px auto 25px;
   }
-  
+
   .containerStory {
     flex-direction: column;
   }
-  
+
   .write {
     width: auto;
     margin: 20px 20px 40px;
   }
-  
+
   .cards {
     grid-template-columns: 1fr;
     margin: 0 20px;
   }
-  
+
   .noStory {
     width: auto;
     margin: 20px;
     text-align: center;
   }
-  
+
   .textNoStory {
     font-size: 36px;
   }
-  
+
   .pNoStory {
     font-size: 18px;
   }
@@ -476,48 +486,48 @@ p {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-  
+
   .avatar {
     width: 120px;
     height: 120px;
   }
-  
+
   .containerDet h1 {
     font-size: 24px;
   }
-  
+
   .containerDet p {
     font-size: 16px;
   }
-  
+
   .containerLinks {
     width: 90%;
   }
-  
+
   .link {
     font-size: 16px;
   }
-  
+
   .write {
     padding: 30px 20px;
   }
-  
+
   .write h2 {
     font-size: 24px;
   }
-  
+
   .write p {
     font-size: 14px;
   }
-  
+
   .imgNoStory {
     width: 300px;
   }
-  
+
   .textNoStory {
     font-size: 28px;
   }
-  
+
   .pNoStory {
     font-size: 16px;
   }

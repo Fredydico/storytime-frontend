@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useAuth } from "~/store/auth";
 import axios, { AxiosError } from "axios";
 import BaseInput from "~/components/input/BaseInput.vue";
